@@ -1,3 +1,8 @@
 h1 {
     font-size:30px;
 }
+
+.retrieved {
+    margin-bottom:1em;
+    list-style-type: none;
+}
