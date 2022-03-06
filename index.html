@@ -1,19 +1,57 @@
 <html>
 <head>
-
+    <link rel="stylesheet" href="css/main-styles.css">
 </head>
 <body>
+<header>
+    <div id="title">
+        <h1>Welcome to Rashida's True Crime Hub!</h1>
+    </div>
+    <nav>
+        <ul>
+            <li class="menu-item">Anchor Link 1</li>
+            <li class="menu-item">Anchor Link 2</li>
+            <li class="menu-item">Anchor Link 3</li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div id="watch-list">
+<ul id="actual-list">
+
+</ul>
+    </div>
+</main>
 
 </body>
 <script>
-fetch("list.json").then(function (response) {
+
+//Fetch API pulls in data from JSON file that contains to watch list
+//Creates constant for div container that will hold to-watch list
+const watchList = document.getElementById("watch-list");
+const items = new Request("list.json");
+const actualList = document.getElementById("actual-list");
+
+fetch(items).then(function (response) {
     return response.json();
 }).then (function(obj) {
     console.log(obj);
+    for (var i = 0; i < obj.length; i++) {
+        console.log(i);
+        var article = document.createElement("li");
+        actualList.appendChild(article);
+        //var listItem = 
+        //article.innerHTML=obj[i].name;
+    }
 }).catch (function(error) {
     console.error("There's an error");
     console.error(error);
 });
+
+
+
+//For/Of loop iterates through JSON of to-watch list and creates HTML element for each.
+
 
 
 </script>
