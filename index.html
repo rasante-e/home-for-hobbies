@@ -20,6 +20,7 @@
 </header>
 <main>
 <div id="form">
+    <form id="list-form">
     <label for="name">Name: </label></br>
     <input type="text" id="name" name="name" required></br>
 
@@ -29,7 +30,10 @@
     <label for="url">URL:</label></br>
     <input type="url" id="url" name="url" required></br>
 
-    <input type="submit" value="Add to List">
+    <input type="submit" id="submit" value="Add to List">
+<!--onclick="saveFormData();"return false;-->
+
+</form>
 </div>
 
     <div id="watch-list">
@@ -52,9 +56,9 @@ const actualList = document.getElementById("actual-list");
 fetch(items).then(function (response) {
     return response.json();
 }).then (function(obj) {
-    console.log(obj);
+    //console.log(obj);
     for (var i = 0; i < obj.length; i++) {
-        console.log(i);
+        //console.log(i);
         var article = document.createElement("li");
         actualList.appendChild(article);
         article.classList.add("retrieved");
@@ -67,6 +71,122 @@ fetch(items).then(function (response) {
     console.error(error);
 });
 
+
+const newItemForm = document.getElementById("list-form");
+
+newItemForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const formData = new FormData(newItemForm);
+
+    const name = formData.get("name");
+    const type = formData.get("type");
+    const url = formData.get("url");
+
+    //FETCH ATTEMPT STARTS HERE
+
+    fetch(items, {
+     
+     // Adding method type
+     method: "POST",
+      
+     // Adding body or contents to send
+     body: JSON.stringify({
+         name: name,
+         type: type,
+         url: url
+     }),
+      
+     // Adding headers to the request
+     headers: {
+         "Content-type": "application/json"
+         //; charset=UTF-8
+     }
+ })
+  
+ // Converting to JSON
+ .then(response => response.json())
+  
+ // Displaying results to console
+ .then(json => console.log(json));
+
+ //FETCH ATTEMPT ENDS HERE
+
+
+  //  console.log(name);
+});
+
+
+
+/*
+function saveFormData() {
+    //var inputs = document.getElementById("list-form").elements;
+   var title = document.getElementById("name").value;
+   var type = document.getElementById("type").value;
+   var url = document.getElementById("url").value;
+    //console.log(title);
+    console.log(url);
+}
+*/
+
+/*
+function saveFormData() {
+    //var inputs = document.getElementById("list-form").elements;
+   var title = document.getElementById("name").value;
+   var type = document.getElementById("type").value;
+   var url = document.getElementById("url").value;
+    //console.log(title);
+    console.log(url);
+}
+*/
+
+//var data = new FormData(document.getElementById("list-form"));
+//console.log(data[0]);
+
+//const formInfo = new FormData(form);
+
+/*
+var submit = document.getElementById("#submit");
+var formItself = document.querySelector("#list-form");
+
+
+if (submit) {
+
+submit.addEventListener("click", (e) => {
+
+    e.preventDefault();
+    var title = document.getElementById("name").value;
+   var type = document.getElementById("type").value;
+   var url = document.getElementById("url").value;
+
+   // var formContent = new FormData(formItself);
+  //  var formValues = [...formContent.entries()];
+   // console.log(formValues);
+}
+
+)
+}
+*/
+//var formData = document.getElementById("list-form").elements;
+//console.log(formData["name"]);
+
+/*
+function getFormData (event) {
+    const itemName = document.getElementById("name").value;
+    console.log(itemName);
+    
+    event.preventDefault();
+
+    const data = new FormData(event.target);
+
+    const formJSON = Object.formEntries(data.entries());
+
+    const form = document.querySelector("#list-form");
+    form.addEventListener("submit", handleFormSubmit);
+    console.log(form);
+    
+}
+
+*/
 
 
 //For/Of loop iterates through JSON of to-watch list and creates HTML element for each.
